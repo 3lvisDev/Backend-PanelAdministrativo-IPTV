@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 const basePath = '/home/streams';
-const baseUrl = 'https://remotv.pro:8443/hls';
+const baseUrl = 'https://pleytv.com:8443/hls';
 const outputFile = '/home/streams/lista_canales.txt';
 
 function obtenerM3U8s(dir) {

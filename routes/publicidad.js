@@ -11,12 +11,12 @@ router.get('/', async (req, res) => {
   if (tipo === 'banner') {
     return res.json({
       banners: [
-        "https://remotv.pro/uploads/BannerPrincipal.png",
-        "https://remotv.pro/uploads/segundoBanner.png",
-        "https://remotv.pro/uploads/tercerBanner.png",
-		"https://remotv.pro/uploads/bannerPrincipalTV.png",
-		"https://remotv.pro/uploads/segundoBannerTV.png",
-		"https://remotv.pro/uploads/tercerBannerTV.png",
+        "https://pleytv.com/uploads/BannerPrincipal.png",
+        "https://pleytv.com/uploads/segundoBanner.png",
+        "https://pleytv.com/uploads/tercerBanner.png",
+		"https://pleytv.com/uploads/bannerPrincipalTV.png",
+		"https://pleytv.com/uploads/segundoBannerTV.png",
+		"https://pleytv.com/uploads/tercerBannerTV.png",
       ]
     });
   }
@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
   if (tipo === 'logo') {
     return res.json({
       logos: [
-        "https://remotv.pro/uploads/logo.png",
+        "https://pleytv.com/uploads/logo.png",
       ]
     });
   }

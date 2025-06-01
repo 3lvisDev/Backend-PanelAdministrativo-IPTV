@@ -31,6 +31,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // <-- Esta línea es clave
 app.use(express.json());
 
 // Ruta de prueba

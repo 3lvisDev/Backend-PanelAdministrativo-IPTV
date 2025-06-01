@@ -289,7 +289,7 @@ router.put('/profile-picture', verifyToken, upload.single('foto'), async (req, r
 
     res.json({
       message: '✅ Foto actualizada.',
-      foto_url: `https://remotv.pro/${relativePath}`
+      foto_url: `https://pleytv.com/${relativePath}`
     });
   } catch (error) {
     console.error("❌ Error al subir foto:", error);
