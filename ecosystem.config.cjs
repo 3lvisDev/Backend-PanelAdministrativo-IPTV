@@ -6,7 +6,7 @@ module.exports = {
       PORT: 5000,
       DB_HOST: "localhost",
       DB_USER: "iptv_user",
-      DB_PASSWORD: "S3cureP@ssw0rd",
+      DB_PASSWORD: "r2oG6qDPJgE9RRAmhhku",
       DB_NAME: "iptv_db",
       JWT_SECRET: "L8v3yB1zR4sQ7nU2mX9kP5dF0jT6wE8a"
     }
