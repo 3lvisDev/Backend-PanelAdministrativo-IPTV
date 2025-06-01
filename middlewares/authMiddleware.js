@@ -12,6 +12,24 @@ const authMiddleware = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    // Token refresh logic
+    const currentTimeInSeconds = Math.floor(Date.now() / 1000);
+    const timeRemaining = decoded.exp - currentTimeInSeconds;
+    const REFRESH_THRESHOLD = 10 * 60; // 10 minutes
+
+    if (timeRemaining < REFRESH_THRESHOLD) {
+      // Prepare payload for the new token, excluding old iat and exp
+      const newTokenPayload = { ...decoded };
+      delete newTokenPayload.iat;
+      delete newTokenPayload.exp;
+      // Optionally, delete other claims if they should not be simply copied
+      // For example, if 'jti' (JWT ID) should be unique per token:
+      // delete newTokenPayload.jti;
+
+      const newToken = jwt.sign(newTokenPayload, process.env.JWT_SECRET, { expiresIn: '1h' });
+      res.setHeader('X-New-Token', newToken);
+    }
+
     // Cargamos los datos del usuario desde el token
     req.user = {
       id: decoded.id,
