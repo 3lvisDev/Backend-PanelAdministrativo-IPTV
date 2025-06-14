@@ -7,17 +7,34 @@ const router = express.Router();
 // Ruta segura para redirigir a la URL del canal comprada
 router.get('/:id', authMiddleware, async (req, res) => {
   const { id } = req.params;
+  const userPais = req.user?.pais; // From authMiddleware
 
   try {
-    const [rows] = await pool.query("SELECT url FROM canales WHERE id = ? AND estado = 1", [id]);
+    // Fetch channel URL and its country restriction
+    const [rows] = await pool.query(
+      "SELECT url, pais_restriction FROM canales WHERE id = ? AND estado = 1",
+      [id]
+    );
 
     if (rows.length === 0) {
       return res.status(404).json({ error: "Canal no encontrado o inactivo." });
     }
 
-    const streamUrl = rows[0].url;
+    const { url: streamUrl, pais_restriction: channelPaisRestriction } = rows[0];
 
-    // Redirección segura a la URL real
+    // Check for country restriction
+    if (channelPaisRestriction && channelPaisRestriction.trim() !== "") {
+      if (!userPais) {
+        // This case should ideally not happen if authMiddleware ensures user.pais,
+        // but as a safeguard:
+        return res.status(403).json({ error: "No se pudo verificar el país del usuario." });
+      }
+      if (channelPaisRestriction.toLowerCase() !== userPais.toLowerCase()) {
+        return res.status(403).json({ error: "Este canal no está disponible en tu país." });
+      }
+    }
+
+    // If no restriction or country matches, redirect to the stream URL
     return res.redirect(streamUrl);
 
   } catch (error) {
