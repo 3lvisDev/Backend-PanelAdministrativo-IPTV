@@ -1,81 +1,97 @@
-# Backend para Plataforma de IPTV
+# 🎬 Backend para Plataforma IPTV
 
-Este repositorio contiene el código fuente del backend para una plataforma de IPTV, desarrollado con Node.js y Express. El backend gestiona la autenticación de usuarios, los canales, las suscripciones y mucho más.
+Este repositorio contiene el backend de una plataforma IPTV desarrollada con **Node.js** y **Express.js**. Proporciona un conjunto completo de funcionalidades para gestionar usuarios, canales, suscripciones, pagos y estadísticas de uso.
 
-## Características Principales
+## 🚀 Características Principales
 
-- **API RESTful:** Endpoints para la gestión de usuarios, canales, suscripciones y pagos.
-- **Autenticación con JWT:** Sistema de autenticación seguro basado en JSON Web Tokens.
-- **Roles de Usuario:** Distinción entre usuarios administradores y clientes, con permisos específicos para cada rol.
-- **Gestión de Canales:** Operaciones CRUD para canales, incluyendo la asignación de categorías.
-- **Pasarela de Pagos:** Integración con sistemas de pago para la gestión de suscripciones.
-- **Panel de Administración:** Rutas para obtener estadísticas y gestionar la plataforma.
+- ✅ **API RESTful**: Endpoints estructurados para la gestión de usuarios, canales, suscripciones y pagos.  
+- 🔐 **Autenticación Segura**: Login con **JWT (JSON Web Tokens)** y cifrado de contraseñas con **bcrypt**.  
+- 👥 **Sistema de Roles**: Soporte para usuarios con permisos de **administrador** y **cliente**.  
+- 📺 **Gestión de Canales IPTV**: CRUD de canales, incluyendo clasificación por categorías.  
+- 💳 **Pasarela de Pagos**: Integración con sistemas de suscripción y control de pagos.  
+- 📊 **Panel de Administración**: Rutas protegidas para estadísticas y control total de la plataforma.
 
-## Tecnologías Utilizadas
+## 🛠️ Tecnologías Utilizadas
 
-- **Backend:** Node.js, Express
-- **Base de Datos:** MySQL
-- **Autenticación:** JSON Web Token (JWT), bcrypt
-- **Middleware:** Cors, Multer
+| Tecnología    | Uso                                   |
+|---------------|----------------------------------------|
+| **Node.js**   | Motor principal del backend            |
+| **Express.js**| Framework para rutas y middlewares     |
+| **MySQL**     | Base de datos relacional               |
+| **JWT**       | Autenticación basada en tokens         |
+| **bcrypt**    | Encriptación de contraseñas            |
+| **Multer**    | Manejo de archivos y formularios       |
+| **Cors**      | Seguridad para solicitudes externas    |
 
-## Instalación
+## ⚙️ Instalación
 
-1.  **Clonar el repositorio:**
-    ```bash
-    git clone https://github.com/tu-usuario/tu-repositorio.git
-    cd tu-repositorio
-    ```
+Sigue estos pasos para ejecutar el proyecto localmente:
 
-2.  **Instalar dependencias:**
-    ```bash
-    npm install
-    ```
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/tu-usuario/tu-repositorio.git
+   cd tu-repositorio
+Instalar dependencias
 
-3.  **Configurar variables de entorno:**
-    Crea un archivo `.env` en la raíz del proyecto y añade las siguientes variables:
-    ```
-    PORT=5000
-    DB_HOST=localhost
-    DB_USER=tu_usuario_db
-    DB_PASSWORD=tu_contraseña_db
-    DB_NAME=tu_nombre_db
-    JWT_SECRET=tu_secreto_jwt
-    ```
+npm install
+Configurar variables de entorno
+Crea un archivo .env en la raíz del proyecto con el siguiente contenido:
 
-4.  **Iniciar el servidor:**
-    ```bash
-    npm start
-    ```
+env
+Copiar
+Editar
+PORT=5000
+DB_HOST=localhost
+DB_USER=tu_usuario_db
+DB_PASSWORD=tu_contraseña_db
+DB_NAME=tu_nombre_db
+JWT_SECRET=tu_secreto_jwt
+Iniciar el servidor
 
-## Endpoints de la API
+npm start
+📡 Endpoints de la API
+🔐 Autenticación
+POST /api/auth/register → Registro de nuevo usuario
 
-A continuación se describen los principales endpoints de la API:
+POST /api/auth/login → Inicio de sesión
 
-### Autenticación
+GET /api/auth/me → Perfil del usuario autenticado
 
-- `POST /api/auth/register`: Registrar un nuevo usuario.
-- `POST /api/auth/login`: Iniciar sesión.
-- `GET /api/auth/me`: Obtener información del usuario autenticado.
+📺 Canales
+GET /api/channels → Listar todos los canales
 
-### Canales
+GET /api/channels/:id → Detalles de un canal
 
-- `GET /api/channels`: Obtener todos los canales.
-- `GET /api/channels/:id`: Obtener un canal por su ID.
-- `POST /api/channels`: Crear un nuevo canal (solo administradores).
-- `PUT /api/channels/:id`: Actualizar un canal (solo administradores).
-- `DELETE /api/channels/:id`: Eliminar un canal (solo administradores).
+POST /api/channels → Crear canal (admin)
 
-### Suscripciones
+PUT /api/channels/:id → Actualizar canal (admin)
 
-- `GET /api/subscriptions`: Obtener todas las suscripciones.
-- `POST /api/subscriptions`: Crear una nueva suscripción.
+DELETE /api/channels/:id → Eliminar canal (admin)
 
-... (y así sucesivamente con los demás endpoints)
+💳 Suscripciones
+GET /api/subscriptions → Listar suscripciones
 
-## Contribuciones
+POST /api/subscriptions → Crear nueva suscripción
 
-Las contribuciones son bienvenidas. Si quieres mejorar este proyecto, por favor, abre un issue o envía un pull request.
+📝 La documentación completa de los endpoints estará disponible próximamente en Swagger o Postman.
 
-## Licencia
+🤝 Contribuciones
+¡Toda ayuda es bienvenida! Si deseas colaborar:
 
-Este proyecto está bajo la Licencia ISC.
+Haz un fork del repositorio.
+
+Crea una rama con tu funcionalidad (git checkout -b feature/nombre).
+
+Haz commit de tus cambios (git commit -m 'Añadir nueva funcionalidad').
+
+Haz push a tu rama (git push origin feature/nombre).
+
+Abre un Pull Request.
+
+👨‍💻 Programadores
+Elvis Da Silva
+
+Hugo Senior
+
+📄 Licencia
+Distribuido bajo la Licencia ISC. Consulta el archivo LICENSE para más detalles.
