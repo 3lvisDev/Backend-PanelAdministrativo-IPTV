@@ -300,10 +300,11 @@ router.put('/update/:id', verifyToken, checkAdminRole, async (req, res) => {
 router.get('/users', verifyToken, checkAdminRole, async (req, res) => {
   try {
     const [users] = await pool.query(
-      'SELECT id, nombre, email, rol, pais, fecha_nacimiento FROM usuarios ORDER BY id DESC'
+      'SELECT id, nombre, email, rol, pais, fecha_nacimiento, suscripcion_activa, fecha_fin_suscripcion FROM usuarios ORDER BY id DESC'
     );
     res.json({ users });
   } catch (error) {
+    console.error('Error al obtener la lista de usuarios:', error);
     res.status(500).json({ message: 'Error al listar usuarios.' });
   }
 });
