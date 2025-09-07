@@ -248,17 +248,46 @@ router.delete('/users/:id', verifyToken, checkAdminRole, async (req, res) => {
 // ✏️ Editar usuario (solo admin)
 router.put('/update/:id', verifyToken, checkAdminRole, async (req, res) => {
   const { id } = req.params;
-  const { nombre, email, rol } = req.body;
+  const { nombre, email, rol, suscripcion_activa, fecha_fin_suscripcion } = req.body;
 
   if (!nombre || !email || !rol) {
-    return res.status(400).json({ message: 'Todos los campos son requeridos.' });
+    return res.status(400).json({ message: 'Los campos nombre, email y rol son requeridos.' });
+  }
+
+  // Validaciones para los nuevos campos
+  if (suscripcion_activa !== undefined && typeof suscripcion_activa !== 'boolean') {
+    return res.status(400).json({ message: 'El campo suscripcion_activa debe ser un booleano.' });
+  }
+
+  if (fecha_fin_suscripcion && isNaN(new Date(fecha_fin_suscripcion).getTime())) {
+    return res.status(400).json({ message: 'La fecha_fin_suscripcion no es una fecha válida.' });
   }
 
   try {
-    await pool.query(
-      'UPDATE usuarios SET nombre = ?, email = ?, rol = ? WHERE id = ?',
-      [nombre, email, rol, id]
-    );
+    // Construcción dinámica de la consulta
+    const fieldsToUpdate = ['nombre = ?', 'email = ?', 'rol = ?'];
+    const values = [nombre, email, rol];
+
+    if (suscripcion_activa !== undefined) {
+      fieldsToUpdate.push('suscripcion_activa = ?');
+      values.push(suscripcion_activa);
+    }
+
+    if (fecha_fin_suscripcion) {
+      fieldsToUpdate.push('fecha_fin_suscripcion = ?');
+      values.push(new Date(fecha_fin_suscripcion));
+    } else if (req.body.hasOwnProperty('fecha_fin_suscripcion')) {
+        fieldsToUpdate.push('fecha_fin_suscripcion = ?');
+        values.push(null);
+    }
+
+
+    values.push(id);
+
+    const sql = `UPDATE usuarios SET ${fieldsToUpdate.join(', ')} WHERE id = ?`;
+
+    await pool.query(sql, values);
+
     res.json({ message: '✅ Usuario actualizado correctamente.' });
   } catch (error) {
     console.error('❌ Error al actualizar usuario:', error);

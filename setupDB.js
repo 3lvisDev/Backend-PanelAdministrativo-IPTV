@@ -12,7 +12,9 @@ async function createTables() {
         fecha_nacimiento DATE,
         pais VARCHAR(100),
         fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        rol ENUM('admin','cliente') NOT NULL DEFAULT 'cliente'
+        rol ENUM('admin','cliente') NOT NULL DEFAULT 'cliente',
+        suscripcion_activa BOOLEAN DEFAULT FALSE,
+        fecha_fin_suscripcion DATETIME
       )
     `);
 
